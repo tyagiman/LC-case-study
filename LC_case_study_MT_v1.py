@@ -5,15 +5,19 @@ Created on Thu Nov  3 15:12:31 2022
 
 @author: manishtyagi
 """
-#set printing options
-pd.options.display.max_columns = None
-pd.options.display.max_rows = 20
+
 
 #call lib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+
+
+#set printing options
+pd.options.display.max_columns = None
+pd.options.display.max_rows = 20
+
 
 #load input file
 loan_ip=pd.read_csv('/Users/priyankagharpure/Desktop/Manish/MS - ML:AI from IIIT&LJMU/Course 1 Statistics/Lending Case Studz/New Dataset/loan.csv')
@@ -69,3 +73,46 @@ loan_ip_nonna.info()
 loan_ip_clean=loan_ip_nonna.drop(['id', 'member_id','url','zip_code','addr_state'], axis=1)
 
 print(loan_ip_clean)
+
+#convert 'term' to numeric
+
+loan_ip_clean.term.dtype
+
+loan_ip_clean['term'].dtypes
+
+#print(loan_ip_clean['term'].str[0:3])
+
+
+term=loan_ip_clean['term'].str[0:3]
+
+loan_ip_clean1 = loan_ip_clean.drop(['term'], axis=1)
+
+loan_ip_clean2=pd.concat([loan_ip_clean1,term],axis=1)
+
+print(loan_ip_clean2['term'])
+
+#ghjgkhgkj
+
+#replace '< 1 year' to '0.5'for column 'emp_length'
+
+loan_ip_clean2['emp_length'] = loan_ip_clean2['emp_length'].replace(['< 1 year'], '0.5')
+
+
+print(loan_ip_clean2['emp_length'])
+
+
+#convert 'emp_length' to numeric 
+
+
+loan_ip_clean2["emp_length"] = loan_ip_clean2["emp_length"].str.extract("(\d*\.?\d+)", expand=True)
+
+print(loan_ip_clean2["emp_length"])
+
+
+loan_ip_clean2.info()
+
+################################
+
+
+ 
+
